@@ -9,6 +9,7 @@ public static class CharacterMovementAnimationKeys
     public const string HorizontalSpeed = "HorizontalSpeed";
     public const string VerticalSpeed = "VerticalSpeed";
     public const string IsGrounded = "IsGrounded";
+    public const string Dead = "Dead";
 }
 
 public static class EnemyAnimationKeys
@@ -23,6 +24,7 @@ public class CharacterAnimationController : MonoBehaviour
 
     EnemyAIController aiController;
     PlayerController playerController;
+    IDamageable damageable;
 
     private void Awake()
     {
@@ -30,6 +32,12 @@ public class CharacterAnimationController : MonoBehaviour
         playerMovement = GetComponent<CharacterMovement2D>();
         aiController = GetComponent<EnemyAIController>();
         playerController = GetComponent<PlayerController>();
+
+        damageable = GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.DeathEvent += OnDeath;
+        }
     }
 
     private void Update()
@@ -47,5 +55,18 @@ public class CharacterAnimationController : MonoBehaviour
         {
             animator.SetBool(EnemyAnimationKeys.IsChasing, aiController.IsChasing);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (damageable != null)
+        {
+            damageable.DeathEvent -= OnDeath;
+        }
+    }
+
+    private void OnDeath()
+    {
+        animator.SetTrigger(CharacterMovementAnimationKeys.Dead);
     }
 }

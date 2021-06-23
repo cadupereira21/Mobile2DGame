@@ -13,14 +13,16 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
 
     [Header("Camera")]
+    [SerializeField] Transform cameraTarget;
+    
+    [Range(0.0f, 5.0f)]
+    [SerializeField] float cameraTargetOffsetX = 2.0f;
 
-    public Transform cameraTarget;
-    [Range(0.0f, 5.0f)]
-    public float cameraTargetOffsetX = 2.0f;
     [Range(0.5f, 50.0f)]
-    public float cameraTargetFlipSpeed = 2.0f;
+    [SerializeField] float cameraTargetFlipSpeed = 2.0f;
+    
     [Range(0.0f, 5.0f)]
-    public float characterSpeedInfluence = 2.0f;
+    [SerializeField] float characterSpeedInfluence = 2.0f;
 
     // Start is called before the first frame update
     void Start()

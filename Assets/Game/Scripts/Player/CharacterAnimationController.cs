@@ -45,7 +45,7 @@ public class CharacterAnimationController : MonoBehaviour
 
         if (aiController != null)
         {
-            animator.SetBool(EnemyAnimationKeys.IsChasing, aiController.isChasing);
+            animator.SetBool(EnemyAnimationKeys.IsChasing, aiController.IsChasing);
         }
     }
 }

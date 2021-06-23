@@ -10,9 +10,18 @@ public class EnemyAIController : MonoBehaviour
     CharacterMovement2D enemyMovement;
     CharacterFacing2D enemyFacing;
     
-    public Vector2 movementInput;
+    private Vector2 movementInput;
 
-    public bool isChasing;
+    public Vector2 MovementInput
+    {
+        get => movementInput;
+        // value é como se fosse o parâmetro de um SetMovementInputX(float x);
+        set { movementInput = new Vector2(Mathf.Clamp(value.x, -1, 1), Mathf.Clamp(value.y, -1, 1)); }
+    }
+
+    private bool isChasing;
+
+    public bool IsChasing { get; set; }
 
     // Start is called before the first frame update
     void Start()

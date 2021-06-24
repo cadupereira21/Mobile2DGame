@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerAnimationController : CharacterAnimationController
 {
-    IDamageable damageable;
+    PlayerController playerController;
 
     protected override void Awake()
     {
         base.Awake();
-
-        damageable = GetComponent<IDamageable>();
-        if (damageable != null)
-        {
-            damageable.DeathEvent += OnDeath;
-        }
+        playerController = GetComponent<PlayerController>();
     }
 
     protected override void Update()
@@ -23,18 +19,6 @@ public class PlayerAnimationController : CharacterAnimationController
         animator.SetBool(CharacterMovementAnimationKeys.IsCrouching, playerMovement.IsCrouching);
         animator.SetFloat(CharacterMovementAnimationKeys.VerticalSpeed, playerMovement.CurrentVelocity.y / playerMovement.JumpSpeed);
         animator.SetBool(CharacterMovementAnimationKeys.IsGrounded, playerMovement.IsGrounded);
-    }
-
-    private void OnDestroy()
-    {
-        if (damageable != null)
-        {
-            damageable.DeathEvent -= OnDeath;
-        }
-    }
-
-    private void OnDeath()
-    {
-        animator.SetTrigger(CharacterMovementAnimationKeys.Dead);
+        animator.SetBool(CharacterMovementAnimationKeys.IsAttacking, playerController.weapon.IsAttacking);
     }
 }

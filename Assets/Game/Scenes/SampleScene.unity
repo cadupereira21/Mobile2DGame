@@ -372,7 +372,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1.9970589, y: 1}
+    m_SensorSize: {x: 2, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 1318658589}
   - component: {fileID: 1318658590}
   - component: {fileID: 1318658591}
+  - component: {fileID: 1318658592}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -664,6 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861012c6a37e57e40a73730e7f48214f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damager: {fileID: 236517884}
 --- !u!114 &1318658586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,6 +818,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRange: 5.89
   visionAngle: 55
+--- !u!114 &1318658592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318658580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae52f798d0870fd4ea45960a6a8ec428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1460476339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1056,7 @@ SpriteRenderer:
   m_SortingLayerID: -940260931
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: df72d97bae32378418e06baa2e1be3ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1065,6 +1079,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1460476340}
+  - {fileID: 1693593418}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1096,6 +1111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb20d76a50d1494ca523802c051be6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponObject: {fileID: 1693593417}
   cameraTarget: {fileID: 1460476340}
   cameraTargetOffsetX: 2
   cameraTargetFlipSpeed: 5
@@ -1167,6 +1183,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae52f798d0870fd4ea45960a6a8ec428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1693593417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1693593418}
+  - component: {fileID: 1693593420}
+  - component: {fileID: 1693593419}
+  m_Layer: 9
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1693593418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693593417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1679453535}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1693593419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693593417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21f0580a8e575d4cb5a8dcf67010a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  attackTime: 0.23
+--- !u!61 &1693593420
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693593417}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.5634748, y: -0.6499839}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.4756382, y: 1.4918795}
+  m_EdgeRadius: 0
 --- !u!1 &1767341602
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator PerformLoadSceneAsync(string sceneName)
     {
-        yield return StartCoroutine(FadeIn());
+        yield return StartCoroutine(PerformFade(true));
 
         // LoadSceneAsync retorna uma operação assincrona, dizendo se esta pronta ou não
         var operation = SceneManager.LoadSceneAsync(sceneName);
@@ -39,36 +39,37 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         // enquanto a operação de carregar a cena estiver executando, a corrotina devolve o comando para a Unity
-        yield return StartCoroutine(FadeOut());
+        yield return StartCoroutine(PerformFade(false));
     }
 
-    private IEnumerator FadeIn()
+    private IEnumerator PerformFade(bool isSceneViewable)
     {
-        float start = 0;
-        float end = 1;
-        float speed = (end - start) / fadeTime;
-        loadingOverlay.alpha = start;
-        while (loadingOverlay.alpha < end)
+        float alphaOut = 0;
+        float alphaIn = 1;
+
+        if (isSceneViewable)// Fade in
         {
-            loadingOverlay.alpha += speed * Time.deltaTime;
-            yield return null;
+            float speed = (alphaIn - alphaOut) / fadeTime;
+            loadingOverlay.alpha = alphaOut;
+            while (loadingOverlay.alpha < alphaIn)
+            {
+                loadingOverlay.alpha += speed * Time.deltaTime;
+                yield return null;
+            }
+
+            loadingOverlay.alpha = alphaIn;
         }
-
-        loadingOverlay.alpha = end;
-    }
-
-    private IEnumerator FadeOut()
-    {
-        float start = 1;
-        float end = 0;
-        float speed = (end - start) / fadeTime;
-        loadingOverlay.alpha = start;
-        while (loadingOverlay.alpha > end)
+        else // Fade Out
         {
-            loadingOverlay.alpha += speed * Time.deltaTime;
-            yield return null;
-        }
+            float speed = (alphaOut - alphaIn) / fadeTime;
+            loadingOverlay.alpha = alphaIn;
+            while (loadingOverlay.alpha > alphaOut)
+            {
+                loadingOverlay.alpha += speed * Time.deltaTime;
+                yield return null;
+            }
 
-        loadingOverlay.alpha = end;
+            loadingOverlay.alpha = alphaOut;
+        }
     }
 }
